@@ -146,9 +146,63 @@ void monitor_write(char *c)
 void monitor_write_hex(u32int n)
 {
     // TODO: implement this yourself!
+	char string[9];
+	string[8] = '\0';
+	int i=7;
+	
+	while (i >= 0)
+	{
+		int x = n & 0x0000000F;
+		switch (x) 
+		{
+			case 0 : string[i] = '0'; break;
+			case 1 : string[i] = '1'; break;
+			case 2 : string[i] = '2'; break;
+			case 3 : string[i] = '3'; break;
+			case 4 : string[i] = '4'; break;
+			case 5 : string[i] = '5'; break;
+			case 6 : string[i] = '6'; break;
+			case 7 : string[i] = '7'; break;
+			case 8 : string[i] = '8'; break;
+			case 9 : string[i] = '9'; break;
+			case 10: string[i] = 'A'; break;
+			case 11: string[i] = 'B'; break;
+			case 12: string[i] = 'C'; break;
+			case 13: string[i] = 'D'; break;
+			case 14: string[i] = 'E'; break;
+			case 15: string[i] = 'F'; break;
+		}
+		
+		i--;
+		n = n>>4;
+	}
+
+	monitor_write(string);
+		
 }
 
 void monitor_write_dec(u32int n)
 {
     // TODO: implement this yourself!
+	char string[11];
+	int istring[10];
+	int index = 0;
+
+	while (index < 10)
+	{
+		int exp = 9 - index;
+		int result=1;
+		int j = 0;		
+
+		while ( j <= exp)
+		{
+			result = result * 10;
+			j++;
+		}
+		
+		string[index]  = (n / result) + 0x30;
+		index++;
+	}	
+	string[index]='\0';
+	monitor_write(string);
 }

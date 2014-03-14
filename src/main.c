@@ -11,6 +11,11 @@ int main(struct multiboot *mboot_ptr)
   //Testing screen instructions
   monitor_clear();
   monitor_write("Hello World");
-
+  u32int n = 0xDEADBABA;
+  monitor_write_hex(n);
+  
+  n = 123456789;
+  
+  monitor_write_dec(n);
   return 0xDEADBABA;
 }
