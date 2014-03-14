@@ -12,9 +12,12 @@ int main(struct multiboot *mboot_ptr)
   monitor_clear();
   monitor_write("Hello World");
   u32int n = 0xDEADBABA;
+
+  monitor_write("\n");
   monitor_write_hex(n);
   
-  n = 123456789;
+  monitor_write("\n");
+  n = 1234567890;
   
   monitor_write_dec(n);
   return 0xDEADBABA;

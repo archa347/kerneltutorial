@@ -187,21 +187,33 @@ void monitor_write_dec(u32int n)
 	char string[11];
 	int istring[10];
 	int index = 0;
-
-	while (index < 10)
+	int leading = 1;
+	int i = 0;
+	while (i < 10)
 	{
-		int exp = 9 - index;
+		int exp = 9 - i;
 		int result=1;
 		int j = 0;		
-
+			
 		while ( j <= exp)
 		{
 			result = result * 10;
 			j++;
-		}
+		} 
 		
 		string[index]  = (n / result) + 0x30;
+		n = n % exp;		
+
+		if (string[index] == 0x30 && leading == 1) 
+		{
+			i++;
+			continue;
+		}
+		leading = 0;
+		
+		i++;
 		index++;
+			
 	}	
 	string[index]='\0';
 	monitor_write(string);
